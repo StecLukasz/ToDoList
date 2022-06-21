@@ -74,7 +74,7 @@ button:hover {
 }
 
 .gym {
-    color: darkblue;
+    color: green;
     list-style: circle;
 }
 
@@ -83,5 +83,7 @@ button:hover {
 }
 
 .work {
+    color:crimson;
     text-decoration: underline;
+    text-decoration: solid;
 }

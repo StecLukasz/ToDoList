@@ -1,19 +1,20 @@
-// <li>
-//   <label for="task-1">Wyprowadzić psa</label>
-//   <inputt type="checkbox" id="task-1" name="Wyprowadzić psa" />
-// </li>;
 const taskNameInputElement = document.querySelector("#name");
 const addButtonElement = document.querySelector("button");
 const tasksContainerElement = document.querySelector(".tasks");
+const categories = ["general", "work", "gym", "hobby"];
 const tasks = [
-    { name: "Wyprowadzić psa", done: false },
-    { name: "Iść na siłke", done: false },
-    { name: "Uczyć się na fronta", done: true },
+    { name: "Wyprowadzić psa", done: false, category: "hobby" },
+    { name: "Iść na siłke", done: false, category: "gym" },
+    { name: "Uczyć się na fronta", done: true, category: "work" },
+    { name: "Wyrzucić śmieci", done: false },
 ];
 const render = () => {
     tasksContainerElement.innerHTML = "";
     tasks.forEach((task, index) => {
         const taskElement = document.createElement("li");
+        if (task.category) {
+            taskElement.classList.add(task.category);
+        }
         const id = `task-${index}`;
         const labelElement = document.createElement("label");
         labelElement.innerText = task.name;
@@ -22,16 +23,21 @@ const render = () => {
         checkboxElement.type = "checkbox";
         checkboxElement.name = task.name;
         checkboxElement.id = id;
-        // taskElement.innerText = task.name;
-        // tasksContainerElement.appendChild(taskElement);
+        checkboxElement.checked = task.done;
+        checkboxElement.addEventListener("change", () => {
+            task.done = !task.done;
+        });
+        taskElement.appendChild(labelElement);
+        taskElement.appendChild(checkboxElement);
+        tasksContainerElement.appendChild(taskElement);
     });
 };
-const addTask = (taskName) => {
-    tasks.push({ name: taskName, done: false });
+const addTask = (task) => {
+    tasks.push(task);
 };
 addButtonElement.addEventListener("click", (event) => {
     event.preventDefault();
-    addTask(taskNameInputElement.value);
+    addTask({ name: taskNameInputElement.value, done: false });
     render();
 });
 render();
