@@ -3,10 +3,12 @@ const addButtonElement: HTMLButtonElement = document.querySelector("button");
 
 const tasksContainerElement: HTMLElement = document.querySelector(".tasks");
 
+type Category = "general" | "work" | "gym" | "hobby";
+
 interface Task {
   name: string;
   done: boolean;
-  category?: string;
+  category?: Category;
 }
 
 const categories: string[] = ["general", "work", "gym", "hobby"];
@@ -52,8 +54,16 @@ const addTask = (task: Task) => {
   tasks.push(task);
 };
 addButtonElement.addEventListener("click", (event: Event) => {
+  const selectedRadioElement: HTMLInputElement = document.querySelector(
+    "input[type='radio']: checked"
+  );
+  const selectedCategory: string = selectedRadioElement.value;
   event.preventDefault();
-  addTask({ name: taskNameInputElement.value, done: false });
+  addTask({
+    name: taskNameInputElement.value,
+    done: false,
+    category: selectedCategory,
+  });
   render();
 });
 
