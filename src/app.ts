@@ -1,8 +1,3 @@
-// <li>
-//   <label for="task-1">Wyprowadzić psa</label>
-//   <inputt type="checkbox" id="task-1" name="Wyprowadzić psa" />
-// </li>;
-
 const taskNameInputElement: HTMLInputElement = document.querySelector("#name");
 const addButtonElement: HTMLButtonElement = document.querySelector("button");
 
@@ -31,8 +26,16 @@ const render = () => {
     checkboxElement.type="checkbox";
     checkboxElement.name = task.name;
     checkboxElement.id = id;
+    checkboxElement.checked = task.done;
+    checkboxElement.addEventListener("change", ()=>{
+        task.done = !task.done;
+    })
 
 
+    taskElement.appendChild(labelElement);
+    taskElement.appendChild(checkboxElement);
+
+    tasksContainerElement.appendChild(taskElement);
 
     // taskElement.innerText = task.name;
     // tasksContainerElement.appendChild(taskElement);
