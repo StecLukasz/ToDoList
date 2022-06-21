@@ -12,10 +12,18 @@ const tasks = [
 ];
 const render = () => {
     tasksContainerElement.innerHTML = "";
-    tasks.forEach((task) => {
+    tasks.forEach((task, index) => {
         const taskElement = document.createElement("li");
-        taskElement.innerText = task.name;
-        tasksContainerElement.appendChild(taskElement);
+        const id = `task-${index}`;
+        const labelElement = document.createElement("label");
+        labelElement.innerText = task.name;
+        labelElement.setAttribute("for", id);
+        const checkboxElement = document.createElement("input");
+        checkboxElement.type = "checkbox";
+        checkboxElement.name = task.name;
+        checkboxElement.id = id;
+        // taskElement.innerText = task.name;
+        // tasksContainerElement.appendChild(taskElement);
     });
 };
 const addTask = (taskName) => {
